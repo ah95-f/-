@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7faf8" />
+    <meta name="description" content="사고 싶은 물건을 24시간 보류하고, 한 번 더 생각한 뒤 결정해요." />
+    <title>소비 멈춰! — 한 번 더 생각하고 결정해요</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="소비 멈춰 홈으로">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>소비 멈춰<span class="brand-bang">!</span></span>
+        </a>
+        <span class="top-note"><span class="note-dot"></span> 나를 위한 작은 쉼표</span>
+      </header>
+
+      <main id="app" tabindex="-1">
+        <section id="home-screen" class="screen">
+          <div class="hero">
+            <div class="hero-copy">
+              <p class="eyebrow"><span class="sparkle">✳</span> 조금 천천히, 더 현명하게</p>
+              <h1>한 번 더 생각하고<br /><span>결정해요.</span></h1>
+              <p class="hero-sub">사고 싶은 마음은 잠시 적어두고,<br class="desktop-break" />내일의 나에게 선택을 맡겨보세요.</p>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+              <div class="art-sun"></div>
+              <div class="art-card"><span class="art-card-line"></span><span class="art-card-line short"></span><span class="art-card-check">✓</span></div>
+              <div class="art-leaf leaf-one"></div><div class="art-leaf leaf-two"></div>
+              <span class="art-star star-one">✳</span><span class="art-star star-two">✦</span>
+            </div>
+          </div>
+
+          <section class="summary-card" aria-label="구매하지 않은 금액 합계">
+            <div class="summary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 8.5h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-10Z" stroke="currentColor" stroke-width="1.7"/><path d="M4 8.5 6.1 4h11.8L20 8.5M8 13h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </div>
+            <div class="summary-copy">
+              <p>구매하지 않은 금액 합계</p>
+              <strong id="saved-total">0<span>원</span></strong>
+              <small>구매를 다시 생각해보기로 한 금액이에요</small>
+            </div>
+            <div class="summary-decoration" aria-hidden="true">✳</div>
+          </section>
+
+          <div class="section-heading">
+            <div><p class="eyebrow section-eyebrow">MY LIST</p><h2>나의 물건 목록 <span id="item-count" class="count-pill">0</span></h2></div>
+            <button id="add-item-top" class="button button-primary add-desktop" type="button"><span class="plus">＋</span> 물건 등록</button>
+          </div>
+
+          <div id="item-list" class="item-list" aria-live="polite"></div>
+          <div id="empty-state" class="empty-state" hidden>
+            <div class="empty-illustration" aria-hidden="true"><span class="empty-bag">⌑</span><span class="empty-spark">✳</span></div>
+            <h3>아직 등록한 물건이 없어요.</h3>
+            <p>사고 싶은 게 생기면 여기에 적어두고<br />하루 뒤에 다시 생각해봐요.</p>
+            <button class="button button-primary" type="button" data-open-form><span class="plus">＋</span> 물건 등록</button>
+          </div>
+
+          <div class="privacy-note"><span class="lock-icon" aria-hidden="true">⌑</span><span>기록은 이 브라우저에만 저장돼요. 브라우저 데이터 삭제나 기기 변경 시 사라질 수 있어요.</span></div>
+        </section>
+
+        <section id="form-screen" class="screen sub-screen" hidden>
+          <button class="back-link" type="button" data-go-home><span aria-hidden="true">←</span> 메인으로</button>
+          <div class="form-intro"><span class="form-spark" aria-hidden="true">✳</span><p class="eyebrow">PAUSE BEFORE YOU PAY</p><h1>사고 싶은 물건을<br />적어보세요<span class="green-dot">.</span></h1><p>결제 전에 24시간, 천천히 생각해 봐요.</p></div>
+          <form id="item-form" novalidate>
+            <label class="field"><span>물건 이름 <b>*</b></span><input id="item-name" name="name" maxlength="80" placeholder="예: 무선 이어폰" autocomplete="off" /><small class="error" id="name-error"></small><span class="field-meta"><span>무엇을 사고 싶나요?</span><span id="name-count">0 / 40</span></span></label>
+            <label class="field"><span>가격(원) <b>*</b></span><div class="input-suffix"><input id="item-price" name="price" inputmode="numeric" placeholder="예: 89000" autocomplete="off" /><span>원</span></div><small class="error" id="price-error"></small><span class="field-meta"><span>1원부터 1,000만 원까지</span></span></label>
+            <label class="field"><span>사고 싶은 이유 <em>선택</em></span><textarea id="item-reason" name="reason" maxlength="120" rows="3" placeholder="예: 디자인이 마음에 들어요"></textarea><small class="error" id="reason-error"></small><span class="field-meta"><span>나중에 다시 읽어볼게요</span><span id="reason-count">0 / 100</span></span></label>
+            <div id="storage-error" class="storage-error" role="alert" hidden>저장에 실패했어요. 브라우저 저장 공간 설정을 확인해주세요.</div>
+            <button class="button button-primary form-submit" type="submit">24시간 보류 시작 <span aria-hidden="true">→</span></button>
+            <p class="form-footnote"><span aria-hidden="true">◷</span> 지금부터 24시간 뒤에 구매를 결정할 수 있어요.</p>
+          </form>
+        </section>
+
+        <section id="decision-screen" class="screen sub-screen" hidden>
+          <button class="back-link" type="button" data-go-home><span aria-hidden="true">←</span> 메인으로</button>
+          <div class="decision-intro"><div class="decision-clock" aria-hidden="true">◷</div><p class="eyebrow">A DAY LATER</p><h1 id="decision-title">24시간이 지났어요<span class="green-dot">.</span></h1><p id="decision-subtitle">지금도 구매하고 싶나요?</p></div>
+          <div id="decision-card" class="decision-item"></div>
+          <div id="decision-warning" class="decision-warning" role="status" hidden></div>
+          <div id="decision-actions" class="decision-actions">
+            <button id="buy-button" class="button button-outline" type="button">구매함</button>
+            <button id="skip-button" class="button button-primary" type="button">구매 안 함 <span aria-hidden="true">→</span></button>
+          </div>
+          <div id="decision-result" class="decision-result" hidden></div>
+          <button class="button button-quiet decision-home" type="button" data-go-home>메인으로</button>
+        </section>
+      </main>
+
+      <footer class="footer"><span>작은 멈춤이 더 나은 선택이 되도록.</span><span>소비 멈춰! <b>©</b> 2025</span></footer>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
